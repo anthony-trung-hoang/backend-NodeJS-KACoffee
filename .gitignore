@@ -1,0 +1,9 @@
+/node_modules
+/vendor
+/.idea
+.idea/
+.env
+
+# not upload node_modules to github 
+# so you should install dependencies YOURSELF
+# OKKKK?

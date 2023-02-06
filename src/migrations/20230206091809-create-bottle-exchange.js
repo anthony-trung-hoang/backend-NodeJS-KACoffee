@@ -2,24 +2,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Vouchers', {
-      voucherID: {
+    await queryInterface.createTable('Bottle_Exchanges', {
+      exchange_id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      expired_date: {
-        type: Sequelize.DATE
-      },
-      value: {
-        type: Sequelize.INTEGER
-      },
-      amount: {
-        type: Sequelize.INTEGER
-      },
-      voucher_code: {
+      phone: {
         type: Sequelize.STRING
+      },
+      bottle_income: {
+        type: Sequelize.INTEGER
+      },
+      bottle_outcome: {
+        type: Sequelize.INTEGER
+      },
+      exchange_date: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +32,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Vouchers');
+    await queryInterface.dropTable('Bottle_Exchanges');
   }
 };

@@ -28,7 +28,8 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       role: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 3
       },
       cart: {
         type: Sequelize.STRING

@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     orderdetail_id: DataTypes.INTEGER,
     item_id: DataTypes.INTEGER,
     order_id: DataTypes.INTEGER,
-    quantity: DataTypes.NUMBER
+    quantity: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'OrderDetail',

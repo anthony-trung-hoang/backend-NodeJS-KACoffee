@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Voucher.init({
-    voucher_id: DataTypes.INTEGER,
+    // voucher_id: DataTypes.INTEGER,
     expired_date: DataTypes.DATE,
     value: DataTypes.INTEGER,
     amount: DataTypes.INTEGER,

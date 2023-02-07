@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Bottle_Exchange.init({
-    exchange_id: DataTypes.INTEGER,
+    // exchange_id: DataTypes.INTEGER,
     phone: DataTypes.STRING,
     bottle_income: DataTypes.INTEGER,
     bottle_outcome: DataTypes.INTEGER,

@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Item.init({
-    item_id: DataTypes.INTEGER,
+    // item_id: DataTypes.INTEGER,
     amount: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     description: DataTypes.TEXT,

@@ -36,13 +36,13 @@ let handleDeleteUser = async (req, res) => {
     })
 }
 
-let handleEditUserInfo = async (req, res) => {
+let handleEditUserInfoByPhone = async (req, res) => {
     if (!req.body.phone) return res.status(200).json({
         code: 1,
         message: 'Missing required parameters'
     })
     let data = req.body;
-    let message = await userService.editUserInfo(data);
+    let message = await userService.editUserInfoByPhone(data);
     return res.status(200).json({
         message
     })
@@ -59,27 +59,60 @@ let handleGetAllUsers = async (req, res) => {
 }
 
 let handleGetUserById = async (req, res) => {
-    let user_id = req.body.id;
-    if (!user_id) {
+    let id = req.body.id;
+    if (!id) {
         return res.status(200).json({
             code: 1,
             message: 'Missing required parameters'
         })
     }
 
-    let user = await userService.getUserById(req.body.id);
-    return res.status(200).json({
-        code: 0,
-        message: 'OK',
-        user: user
-    })
+    let user = await userService.getUserById(id);
+
+    if (user) {
+        return res.status(200).json({
+            code: 0,
+            message: 'OK',
+            user: user
+        })
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'user with input id not exist'
+        })
+    }
+}
+
+let handleGetUserByPhone = async (req, res) => {
+    let phone = req.body.phone;
+    if (!phone) {
+        return res.status(200).json({
+            code: 1,
+            message: 'Missing required parameters'
+        })
+    }
+
+    let user = await userService.getUserByPhone(phone);
+    if (user) {
+        return res.status(200).json({
+            code: 0,
+            message: 'OK',
+            user: user
+        })
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'user with input phone not exist'
+        })
+    }
 }
 
 module.exports = {
     handleUserLogin: handleUserLogin,
     handleCreateNewUser: handleCreateNewUser,
     handleDeleteUser: handleDeleteUser,
-    handleEditUserInfo: handleEditUserInfo,
+    handleEditUserInfoByPhone: handleEditUserInfoByPhone,
     handleGetAllUsers: handleGetAllUsers,
-    handleGetUserById: handleGetUserById
+    handleGetUserById: handleGetUserById,
+    handleGetUserByPhone: handleGetUserByPhone
 }

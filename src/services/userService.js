@@ -79,7 +79,7 @@ let createNewUSer = (data) => {
                     message: 'Phone has been used'
                 })
             } else {
-                let user_password = hashPassword(data.user_password);
+                let user_password = await hashPassword(data.user_password);
                 await db.User.create({
                     // user field
                     // user_id: DataTypes.INTEGER,
@@ -112,16 +112,16 @@ let createNewUSer = (data) => {
     })
 }
 
-let deleteUser = (user_id) => {
+let deleteUser = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
             let userToDelete = await db.User.findOne({
-                where: { user_id: user_id }
+                where: { id: id }
             })
 
             if (userToDelete) {
                 await db.User.destroy({
-                    where: { user_id: user_id }
+                    where: { id: id }
                 })
                 resolve({
                     code: 0,
@@ -139,12 +139,12 @@ let deleteUser = (user_id) => {
     })
 }
 
-let editUserInfo = (data) => {
+let editUserInfoByPhone = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let user = await db.User.findOne({
                 where: { phone: data.phone },
-                raw: true
+                raw: false
             })
 
             // user field
@@ -200,14 +200,37 @@ let getAllUsers = () => {
     })
 }
 
-let getUserById = (user_id) => {
+let getUserById = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
             let user = '';
-            if (user_id) {
+            if (id) {
                 user = await db.User.findOne({
                     where: {
-                        user_id: user_id
+                        id: id
+                    },
+                    attributes: {
+                        exclude: ['user_password']
+                    },
+                    raw: true
+                })
+
+                resolve(user);
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let getUserByPhone = (phone) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = '';
+            if (phone) {
+                user = await db.User.findOne({
+                    where: {
+                        phone: phone
                     },
                     attributes: {
                         exclude: ['user_password']
@@ -227,7 +250,8 @@ module.exports = {
     handleLogin: handleLogin,
     createNewUSer: createNewUSer,
     deleteUser: deleteUser,
-    editUserInfo: editUserInfo,
+    editUserInfoByPhone: editUserInfoByPhone,
     getAllUsers: getAllUsers,
-    getUserById: getUserById
+    getUserById: getUserById,
+    getUserByPhone: getUserByPhone
 }

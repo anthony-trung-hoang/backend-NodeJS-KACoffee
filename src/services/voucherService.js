@@ -50,7 +50,7 @@ let deleteVoucher = (id) => {
                 })
             } else {
                 resolve({
-                    code: 1,
+                    code: 2,
                     message: "Voucher not exist"
                 })
             }

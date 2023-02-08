@@ -1,6 +1,7 @@
 import express from "express";
 import userController from "../controllers/userController"
 import voucherController from "../controllers/voucherController"
+import itemController from "../controllers/itemController"
 
 let router = express.Router();
 
@@ -21,7 +22,15 @@ let initRoutes = (app) => {
     router.put('/api/edit-voucher-info-by-id', voucherController.handleEditVoucherById); //OK
     router.get('/api/get-all-vouchers', voucherController.handleGetAllVouchers);//OK
     router.get('/api/get-voucher-info-by-id', voucherController.handleGetVoucherById);//
-    router.get('/api/get-voucher-info-by-code', voucherController.handleGetVoucherByCode);//
+    router.get('/api/get-voucher-info-by-code', voucherController.handleGetVoucherByCode);//OK
+
+    //item controller
+    router.post('/api/create-new-item', itemController.handleCreateNewItem); // OK
+    router.delete('/api/delete-item', itemController.handleDeleteItem); // OK
+    router.put('/api/edit-item-info-by-id', itemController.handleEditItemInfoById); //OK
+    router.get('/api/get-item-info-by-id', itemController.handleGetItemById);// OK
+    router.get('/api/get-all-items', itemController.handleGetAllItems);// OK
+
 
     return app.use("/", router);
 }

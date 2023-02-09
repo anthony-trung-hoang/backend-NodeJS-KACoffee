@@ -10,15 +10,21 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       total_price: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       payment: {
-        type: Sequelize.INTEGER
-      },
+        allowNull: false,
+        type: Sequelize.STRING,
+        defaultValue : 'Direct',
+        values: ['Momo','ViettelMoney','Bankking','Direct']
+        },
       status: {
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
       },
       staff_name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       shipping_address: {

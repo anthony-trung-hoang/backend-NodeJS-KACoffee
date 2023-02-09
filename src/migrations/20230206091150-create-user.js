@@ -10,15 +10,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       phone: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       user_name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING
       },
       user_password: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       birthday: {
@@ -28,8 +31,10 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       role: {
-        type: Sequelize.INTEGER,
-        defaultValue: 3
+        allowNull: false,
+        type: Sequelize.STRING,
+        defaultValue:'customer',
+        values: ['customer','admin','staff']
       },
       cart: {
         type: Sequelize.STRING

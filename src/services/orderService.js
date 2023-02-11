@@ -50,7 +50,7 @@ let getOrdersByUserId = (user_id) => {
         try {
             let orders = '';
             if (user_id) {
-                orders = await db.Order.findOne({
+                orders = await db.Order.findAll({
                     where: {
                         user_id: user_id
                     },
@@ -70,5 +70,5 @@ module.exports = {
 
     createNewOrder: createNewOrder,
     getAllOrders: getAllOrders,
-    // getOrdersByUserId: getOrdersByUserId
+    getOrdersByUserId: getOrdersByUserId
 }

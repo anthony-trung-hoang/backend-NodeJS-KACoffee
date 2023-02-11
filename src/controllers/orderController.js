@@ -26,7 +26,7 @@ let handleGetOrdersByUserId = async (req, res) => {
         })
     }
 
-    let orders = await orderService.getOrderByUserId(user_id);
+    let orders = await orderService.getOrdersByUserId(user_id);
 
     if (orders) {
         return res.status(200).json({

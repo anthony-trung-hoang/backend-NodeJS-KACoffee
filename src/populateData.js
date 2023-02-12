@@ -56,7 +56,7 @@ const orderdetail1 = {
 const order1 = {
     total_price: 20000,
     payment: 'Direct',
-    status: true,
+    status: 1,
     staff_name: "Staff 1",
     shipping_address: "HN",
     user_id: 1,

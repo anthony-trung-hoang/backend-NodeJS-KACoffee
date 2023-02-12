@@ -20,8 +20,9 @@ module.exports = {
         values: ['Momo','ViettelMoney','Bankking','Direct']
         },
       status: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+        values: [1,-1,0]
       },
       staff_name: {
         allowNull: false,

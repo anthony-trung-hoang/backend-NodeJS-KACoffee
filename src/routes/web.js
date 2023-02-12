@@ -3,13 +3,14 @@ import userController from "../controllers/userController"
 import voucherController from "../controllers/voucherController"
 import itemController from "../controllers/itemController"
 import orderController from "../controllers/orderController"
+import uploadController from "../controllers/uploadController"
 
 let router = express.Router();
 
 let initRoutes = (app) => {
 
     //usercontroller
-    router.get('/api/login', userController.handleUserLogin); //OK
+    router.post('/api/login', userController.handleUserLogin); //OK
     router.post('/api/create-new-user', userController.handleCreateNewUser); //OK
     router.delete('/api/delete-user', userController.handleDeleteUser); //OK
     router.put('/api/edit-user-info-by-phone', userController.handleEditUserInfoByPhone);//OK
@@ -36,6 +37,9 @@ let initRoutes = (app) => {
     router.post('/api/create-new-order', orderController.handleCreateNewOrder); 
     router.get('/api/get-orders-by-user-id', orderController.handleGetOrdersByUserId);
     router.get('/api/get-all-orders', orderController.handleGetAllOrders); 
+
+    // upload controller
+    router.post('/api/upload', uploadController.upload.single('image'), uploadController.handleUploadFile);
 
     
     return app.use("/", router);

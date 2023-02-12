@@ -37,6 +37,10 @@ let initRoutes = (app) => {
     router.get('/api/get-orders-by-user-id', orderController.handleGetOrdersByUserId);
     router.get('/api/get-all-orders', orderController.handleGetAllOrders); 
 
+    // Staff controller 
+    router.get('/api/get-staff-order',staffController.handleGetAllStaffOrder); // OK
+    router.post('/api/update-status-order', staffController.handleUpdateStatus); // OK
+    
     
     return app.use("/", router);
 }

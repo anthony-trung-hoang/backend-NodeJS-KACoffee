@@ -10,15 +10,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       expired_date: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       value: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       amount: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       voucher_code: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

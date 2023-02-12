@@ -2,6 +2,7 @@ import express from "express";
 import userController from "../controllers/userController"
 import voucherController from "../controllers/voucherController"
 import itemController from "../controllers/itemController"
+import orderController from "../controllers/orderController"
 
 let router = express.Router();
 
@@ -31,7 +32,12 @@ let initRoutes = (app) => {
     router.get('/api/get-item-info-by-id', itemController.handleGetItemById);// OK
     router.get('/api/get-all-items', itemController.handleGetAllItems);// OK
 
+    //order controller
+    router.post('/api/create-new-order', orderController.handleCreateNewOrder); 
+    router.get('/api/get-orders-by-user-id', orderController.handleGetOrdersByUserId);
+    router.get('/api/get-all-orders', orderController.handleGetAllOrders); 
 
+    
     return app.use("/", router);
 }
 

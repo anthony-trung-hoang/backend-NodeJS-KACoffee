@@ -38,7 +38,10 @@ let initRoutes = (app) => {
     router.get('/api/get-all-orders', orderController.handleGetAllOrders); 
 
     // Staff controller 
-    router.get('/api/get-staff-order',staffController.handleGetAllStaffOrder); // OK
+    router.get('/api/get-staff-order-pending',staffController.handleGetAllStaffOrderPending); // OK
+    router.get('/api/get-staff-order-successful',staffController.handleGetAllStaffOrderSuccessful); // OK
+    router.get('/api/get-staff-order-cancel',staffController.handleGetAllStaffOrderCancel); // OK
+    
     router.post('/api/update-status-order', staffController.handleUpdateStatus); // OK
     
     

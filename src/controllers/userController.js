@@ -107,6 +107,31 @@ let handleGetUserByPhone = async (req, res) => {
     }
 }
 
+let handleGetAllUsersByRole = async (req, res) => {
+    let role = req.body.role;
+    if (!role) {
+        return res.status(200).json({
+            code: 1,
+            message: 'Missing required parameters'
+        })
+    }
+
+    let users = await userService.getAllUsersByRole(role);
+
+    if (users) {
+        return res.status(200).json({
+            code: 0,
+            message: 'OK',
+            users: users
+        })
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'role with input id not exist'
+        })
+    }
+}
+
 module.exports = {
     handleUserLogin: handleUserLogin,
     handleCreateNewUser: handleCreateNewUser,
@@ -114,5 +139,6 @@ module.exports = {
     handleEditUserInfoByPhone: handleEditUserInfoByPhone,
     handleGetAllUsers: handleGetAllUsers,
     handleGetUserById: handleGetUserById,
-    handleGetUserByPhone: handleGetUserByPhone
+    handleGetUserByPhone: handleGetUserByPhone,
+    handleGetAllUsersByRole: handleGetAllUsersByRole
 }

@@ -16,8 +16,8 @@ const user1 = {
   email: "leducquan@gmail.com",
   user_password: "123123",
   birthday: new Date(2002, 11, 16),
-  gender: true,
-  role: "admin",
+  gender: 0,
+  role: 1,
   cart: null,
 };
 
@@ -27,8 +27,8 @@ const user2 = {
   email: "maivuduy@gmail.com",
   user_password: "123124",
   birthday: new Date(2002, 11, 11),
-  gender: true,
-  role: "customer",
+  gender: 0,
+  role: 2,
   cart: null,
 };
 
@@ -55,7 +55,7 @@ const orderdetail1 = {
 
 const order1 = {
     total_price: 20000,
-    payment: 'Direct',
+    payment: 1,
     status: 1,
     staff_name: "Staff 1",
     shipping_address: "HN",

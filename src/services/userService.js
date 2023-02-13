@@ -246,6 +246,29 @@ let getUserByPhone = (phone) => {
     })
 }
 
+let getAllUsersByRole = (role) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let users = '';
+            if (role) {
+                users = await db.User.findAll({
+                    where: {
+                        role: role
+                    },
+                    attributes: {
+                        exclude: ['user_password']
+                    },
+                    raw: true
+                })
+
+                resolve(users);
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     handleLogin: handleLogin,
     createNewUSer: createNewUSer,
@@ -253,5 +276,6 @@ module.exports = {
     editUserInfoByPhone: editUserInfoByPhone,
     getAllUsers: getAllUsers,
     getUserById: getUserById,
-    getUserByPhone: getUserByPhone
+    getUserByPhone: getUserByPhone,
+    getAllUsersByRole: getAllUsersByRole
 }

@@ -28,13 +28,13 @@ module.exports = {
         type: Sequelize.DATE
       },
       gender: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.TINYINT
       },
       role: {
         allowNull: false,
-        type: Sequelize.STRING,
-        defaultValue:'customer',
-        values: ['customer','admin','staff']
+        type: Sequelize.INTEGER,
+        defaultValue:1,
+        values: ['1','2','3']
       },
       cart: {
         type: Sequelize.STRING

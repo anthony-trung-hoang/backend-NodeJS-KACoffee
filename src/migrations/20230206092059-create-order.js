@@ -15,9 +15,9 @@ module.exports = {
       },
       payment: {
         allowNull: false,
-        type: Sequelize.STRING,
-        defaultValue : 'Direct',
-        values: ['Momo','ViettelMoney','Bankking','Direct']
+        type: Sequelize.INTEGER,
+        defaultValue : 1,
+        values: [1,2,3,4]
         },
       status: {
         type: Sequelize.INTEGER,

@@ -5,7 +5,7 @@ let createNewOrder = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
 
-            if (!data.id|| !data.total_price || !data.payment || !data.status ||
+            if (!data.id || !data.total_price || !data.payment || !data.status ||
                 !data.staff_name || !data.user_id || !data.voucher_id) {
                 resolve({
                     code: 1,

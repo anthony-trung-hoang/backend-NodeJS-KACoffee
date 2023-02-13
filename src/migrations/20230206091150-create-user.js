@@ -32,9 +32,8 @@ module.exports = {
       },
       role: {
         allowNull: false,
-        type: Sequelize.STRING,
-        defaultValue:'customer',
-        values: ['customer','admin','staff']
+        type: Sequelize.INTEGER,
+        defaultValue: 3
       },
       cart: {
         type: Sequelize.STRING

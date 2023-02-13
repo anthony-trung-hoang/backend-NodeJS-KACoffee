@@ -33,34 +33,34 @@ const user2 = {
 };
 
 const voucher1 = {
-    expired_date: new Date(2023,2,28),
-    value: 20000,
-    amount: 10,
-    voucher_code: "Giảm giá tháng 2"
+  expired_date: new Date(2023, 2, 28),
+  value: 20000,
+  amount: 10,
+  voucher_code: "Giảm giá tháng 2"
 }
 
 const item1 = {
-    amount: 100,
-    price: 40000,
-    description: "Sự kết hợp hoàn hảo giữa hạt cà phê Robusta & Arabica thượng hạng",
-    image_link: "",
-    name: "Cà phê"
+  amount: 100,
+  price: 40000,
+  description: "Sự kết hợp hoàn hảo giữa hạt cà phê Robusta & Arabica thượng hạng",
+  image_link: "",
+  name: "Cà phê"
 }
 
 const orderdetail1 = {
-    item_id: 1,
-    order_id: 1,
-    quantity: 1
+  item_id: 1,
+  order_id: 1,
+  quantity: 1
 }
 
 const order1 = {
-    total_price: 20000,
-    payment: 'Direct',
-    status: true,
-    staff_name: "Staff 1",
-    shipping_address: "HN",
-    user_id: 1,
-    voucher_id: 1
+  total_price: 20000,
+  payment: 'Direct',
+  status: true,
+  staff_name: "Staff 1",
+  shipping_address: "HN",
+  user_id: 1,
+  voucher_id: 1
 }
 
 

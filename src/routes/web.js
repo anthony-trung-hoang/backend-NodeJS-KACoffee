@@ -33,9 +33,9 @@ let initRoutes = (app) => {
     router.get('/api/get-all-items', itemController.handleGetAllItems);// OK
 
     //order controller
-    router.post('/api/create-new-order', orderController.handleCreateNewOrder); 
+    router.post('/api/create-new-order', orderController.handleCreateNewOrder);
     router.get('/api/get-orders-by-user-id', orderController.handleGetOrdersByUserId);
-    router.get('/api/get-all-orders', orderController.handleGetAllOrders); 
+    router.get('/api/get-all-orders', orderController.handleGetAllOrders);
 
     // Staff controller 
     router.get('/api/get-staff-order-pending',staffController.handleGetAllStaffOrderPending); // OK

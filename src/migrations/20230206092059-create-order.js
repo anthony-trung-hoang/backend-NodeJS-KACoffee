@@ -15,16 +15,13 @@ module.exports = {
       },
       payment: {
         allowNull: false,
-        type: Sequelize.STRING,
-        defaultValue : 'Direct',
-        values: ['Momo','ViettelMoney','Bankking','Direct']
-        },
+        type: Sequelize.INTEGER
+      },
       status: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.INTEGER,
         defaultValue: true
       },
       staff_name: {
-        allowNull: false,
         type: Sequelize.STRING
       },
       shipping_address: {

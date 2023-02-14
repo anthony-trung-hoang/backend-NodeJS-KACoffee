@@ -118,7 +118,7 @@ let handleGetAllUsersByRole = async (req, res) => {
 
     let users = await userService.getAllUsersByRole(role);
 
-    if (users) {
+    if (users.length !== 0) {
         return res.status(200).json({
             code: 0,
             message: 'OK',

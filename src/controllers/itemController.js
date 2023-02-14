@@ -100,11 +100,33 @@ let handleGetItemById = async (req, res) => {
     }
 }
 
+let handleGetItemImageById = async (req, res) => {
+    let id = req.body.id;
+    if (!id) {
+        return res.status(200).json({
+            code: 1,
+            message: 'Missing required parameters'
+        })
+    }
+
+    let filePath = await itemService.getItemFilePath(id);
+    console.log(filePath);
+    if (filePath) {
+        return res.sendFile(filePath, { root: `D:\\project\\KA_Coffee\\KA_Coffee_Backend` });
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'item with input id not exist'
+        })
+    }
+}
+
 module.exports = {
     handleCreateNewItem: handleCreateNewItem,
     handleDeleteItem: handleDeleteItem,
     handleEditItemInfoById: handleEditItemInfoById,
     handleGetAllItems: handleGetAllItems,
     handleGetItemById: handleGetItemById,
-    uploadImg: uploadImg
+    uploadImg: uploadImg,
+    handleGetItemImageById: handleGetItemImageById
 }

@@ -146,10 +146,31 @@ let getItemById = (id) => {
     })
 }
 
+let getItemFilePath = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let item = '';
+            if (id) {
+                item = await db.Item.findOne({
+                    where: {
+                        id: id
+                    },
+                    raw: true
+                })
+
+                resolve(item.image_link);
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     createNewItem: createNewItem,
     deleteItem: deleteItem,
     editItemById: editItemById,
     getAllItems: getAllItems,
-    getItemById: getItemById
+    getItemById: getItemById,
+    getItemFilePath: getItemFilePath
 }

@@ -32,6 +32,7 @@ let initRoutes = (app) => {
     router.put('/api/edit-item-info-by-id', itemController.handleEditItemInfoById); //OK
     router.get('/api/get-item-info-by-id', itemController.handleGetItemById);// OK
     router.get('/api/get-all-items', itemController.handleGetAllItems);// OK
+    router.get('/api/get-item-image-by-id', itemController.handleGetItemImageById)
 
     //order controller
     router.post('/api/create-new-order', orderController.handleCreateNewOrder);

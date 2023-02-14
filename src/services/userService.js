@@ -15,7 +15,8 @@ let handleLogin = (phone, user_password) => {
             });
 
             if (user) {
-                let checkPassword = bcrypt.compareSync(user_password, user.user_password);
+                // let checkPassword = bcrypt.compareSync(user_password, user.user_password);
+                let checkPassword = user_password === user.user_password;
                 if (checkPassword) {
                     data.code = 0;
                     data.message = 'OK';
@@ -79,18 +80,9 @@ let createNewUSer = (data) => {
                     message: 'Phone has been used'
                 })
             } else {
-                let user_password = await hashPassword(data.user_password);
+                // let user_password = await hashPassword(data.user_password);
+                let user_password = data.user_password;
                 await db.User.create({
-                    // user field
-                    // user_id: DataTypes.INTEGER,
-                    // phone: DataTypes.STRING,
-                    // user_name: DataTypes.STRING,
-                    // email: DataTypes.STRING,
-                    // user_password: DataTypes.STRING,
-                    // birthday: DataTypes.DATE,
-                    // gender: DataTypes.BOOLEAN,
-                    // role: DataTypes.INTEGER,
-                    // cart: DataTypes.STRING
                     phone: data.phone,
                     user_name: data.user_name,
                     email: data.email,

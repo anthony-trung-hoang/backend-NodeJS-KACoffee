@@ -73,6 +73,27 @@ let hashPassword = (user_password) => {
 let createNewUSer = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
+            if (data.phone === null || data.phone === "") {
+                resolve({
+                    code: 2,
+                    message: "Missing required parameters: phone"
+                })
+            }
+
+            if (data.user_name === null || data.user_name === "") {
+                resolve({
+                    code: 2,
+                    message: "Missing required parameters: user_name"
+                })
+            }
+
+            if (data.user_password === null || data.user_password === "") {
+                resolve({
+                    code: 2,
+                    message: "Missing required parameters: user_password"
+                })
+            }
+
             let check = await checkUserPhone(data.phone);
             if (check == true) {
                 resolve({
@@ -89,7 +110,7 @@ let createNewUSer = (data) => {
                     user_password: user_password,
                     birthday: data.birthday,
                     gender: data.gender === '1' ? true : false,
-                    role: data.role,
+                    role: data.role === "" ? 3 : data.role,
                     cart: data.cart
                 })
                 resolve({
@@ -138,17 +159,6 @@ let editUserInfoByPhone = (data) => {
                 where: { phone: data.phone },
                 raw: false
             })
-
-            // user field
-            // user_id: DataTypes.INTEGER,
-            // phone: DataTypes.STRING,
-            // user_name: DataTypes.STRING,
-            // email: DataTypes.STRING,
-            // user_password: DataTypes.STRING,
-            // birthday: DataTypes.DATE,
-            // gender: DataTypes.BOOLEAN,
-            // role: DataTypes.INTEGER,
-            // cart: DataTypes.STRING
 
             if (user) {
                 user.user_name = data.user_name;

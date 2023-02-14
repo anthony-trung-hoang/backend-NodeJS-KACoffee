@@ -3,7 +3,7 @@ import userController from "../controllers/userController"
 import voucherController from "../controllers/voucherController"
 import itemController from "../controllers/itemController"
 import orderController from "../controllers/orderController"
-import staffController from "../controllers/staffController" 
+import staffController from "../controllers/staffController"
 
 let router = express.Router();
 
@@ -27,7 +27,7 @@ let initRoutes = (app) => {
     router.get('/api/get-voucher-info-by-code', voucherController.handleGetVoucherByCode);//OK
 
     //item controller
-    router.post('/api/create-new-item', itemController.handleCreateNewItem); // OK
+    router.post('/api/create-new-item', itemController.uploadImg, itemController.handleCreateNewItem); // OK
     router.delete('/api/delete-item', itemController.handleDeleteItem); // OK
     router.put('/api/edit-item-info-by-id', itemController.handleEditItemInfoById); //OK
     router.get('/api/get-item-info-by-id', itemController.handleGetItemById);// OK
@@ -39,13 +39,13 @@ let initRoutes = (app) => {
     router.get('/api/get-all-orders', orderController.handleGetAllOrders);
 
     // Staff controller 
-    router.get('/api/get-staff-order-pending',staffController.handleGetAllStaffOrderPending); // OK
-    router.get('/api/get-staff-order-successful',staffController.handleGetAllStaffOrderSuccessful); // OK
-    router.get('/api/get-staff-order-cancel',staffController.handleGetAllStaffOrderCancel); // OK
-    
+    router.get('/api/get-staff-order-pending', staffController.handleGetAllStaffOrderPending); // OK
+    router.get('/api/get-staff-order-successful', staffController.handleGetAllStaffOrderSuccessful); // OK
+    router.get('/api/get-staff-order-cancel', staffController.handleGetAllStaffOrderCancel); // OK
+
     router.post('/api/update-status-order', staffController.handleUpdateStatus); // OK
-    
-    
+
+
     return app.use("/", router);
 }
 

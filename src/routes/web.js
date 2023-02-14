@@ -3,6 +3,7 @@ import userController from "../controllers/userController"
 import voucherController from "../controllers/voucherController"
 import itemController from "../controllers/itemController"
 import orderController from "../controllers/orderController"
+import staffController from "../controllers/staffController" 
 
 let router = express.Router();
 

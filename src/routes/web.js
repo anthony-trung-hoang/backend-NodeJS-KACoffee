@@ -4,12 +4,13 @@ import voucherController from "../controllers/voucherController"
 import itemController from "../controllers/itemController"
 import orderController from "../controllers/orderController"
 import staffController from '../controllers/staffController';
+
 let router = express.Router();
 
 let initRoutes = (app) => {
 
     //usercontroller
-    router.get('/api/login', userController.handleUserLogin); //OK
+    router.post('/api/login', userController.handleUserLogin); //OK
     router.post('/api/create-new-user', userController.handleCreateNewUser); //OK
     router.delete('/api/delete-user', userController.handleDeleteUser); //OK
     router.put('/api/edit-user-info-by-phone', userController.handleEditUserInfoByPhone);//OK
@@ -40,6 +41,7 @@ let initRoutes = (app) => {
     // Staff controller 
     router.get('/api/get-staff-order', staffController.handleGetAllStaffOrder); // OK
     router.post('/api/update-status-order', staffController.handleUpdateStatus); // OK
+
     return app.use("/", router);
 }
 

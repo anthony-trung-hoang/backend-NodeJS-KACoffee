@@ -3,7 +3,6 @@ import userController from "../controllers/userController"
 import voucherController from "../controllers/voucherController"
 import itemController from "../controllers/itemController"
 import orderController from "../controllers/orderController"
-import staffController from '../controllers/staffController';
 
 let router = express.Router();
 
@@ -39,9 +38,13 @@ let initRoutes = (app) => {
     router.get('/api/get-all-orders', orderController.handleGetAllOrders);
 
     // Staff controller 
-    router.get('/api/get-staff-order', staffController.handleGetAllStaffOrder); // OK
+    router.get('/api/get-staff-order-pending',staffController.handleGetAllStaffOrderPending); // OK
+    router.get('/api/get-staff-order-successful',staffController.handleGetAllStaffOrderSuccessful); // OK
+    router.get('/api/get-staff-order-cancel',staffController.handleGetAllStaffOrderCancel); // OK
+    
     router.post('/api/update-status-order', staffController.handleUpdateStatus); // OK
-
+    
+    
     return app.use("/", router);
 }
 

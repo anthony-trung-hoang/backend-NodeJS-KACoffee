@@ -150,19 +150,19 @@ const voucher = [
         expired_date: new Date(2023, 4, 30),
         value: 20000,
         amount: 15,
-        voucher_code: "Giảm giá tháng 2",
+        voucher_code: "GIAMGIATHANG2",
     },
     {
         expired_date: new Date(2023, 3, 30),
         value: 30000,
         amount: 10,
-        voucher_code: "Lần đầu uống coffee",
+        voucher_code: "BANMOI",
     },
     {
         expired_date: new Date(2023, 2, 28),
         value: 10000,
         amount: 20,
-        voucher_code: "Giảm 10k",
+        voucher_code: "KHACHVIP",
     },
 ];
 

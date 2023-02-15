@@ -1,10 +1,10 @@
 import orderService from "../services/orderService";
 
-let handleCreateNewOrder = async (req, res) => {
-    let msg = await orderService.createNewOrder(req.body);
-    return res.status(200).json({
+let handleCreateNewOrderAndDetail = async (req, res) => {
+    let msg = await orderService.createNewOrderAndDetail(req.body);
+    return res.status(200).json(
         msg
-    })
+    )
 }
 
 let handleGetAllOrders = async (req, res) => {
@@ -44,7 +44,7 @@ let handleGetOrdersByUserId = async (req, res) => {
 
 
 module.exports = {
-    handleCreateNewOrder: handleCreateNewOrder,
     handleGetAllOrders: handleGetAllOrders,
-    handleGetOrdersByUserId: handleGetOrdersByUserId
+    handleGetOrdersByUserId: handleGetOrdersByUserId,
+    handleCreateNewOrderAndDetail: handleCreateNewOrderAndDetail
 }

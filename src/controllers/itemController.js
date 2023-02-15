@@ -31,9 +31,9 @@ let handleCreateNewItem = async (req, res) => {
         let filePath = req.file.path;
         console.log(filePath);
         let msg = await itemService.createNewItem(req.body, filePath);
-        return res.status(200).json({
+        return res.status(200).json(
             msg
-        })
+        )
     } else {
         return res.status(200).json({
             code: 2,

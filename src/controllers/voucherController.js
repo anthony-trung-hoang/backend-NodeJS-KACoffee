@@ -2,9 +2,9 @@ import voucherService from "../services/voucherService";
 
 let handleCreateNewVoucher = async (req, res) => {
     let msg = await voucherService.createNewVoucher(req.body);
-    return res.status(200).json({
+    return res.status(200).json(
         msg
-    })
+    )
 }
 
 let handleDeleteVoucher = async (req, res) => {

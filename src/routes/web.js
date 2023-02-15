@@ -35,7 +35,7 @@ let initRoutes = (app) => {
     router.get('/api/get-item-image-by-id', itemController.handleGetItemImageById)
 
     //order controller
-    router.post('/api/create-new-order', orderController.handleCreateNewOrder);
+    router.post('/api/create-new-order-and-detail', orderController.handleCreateNewOrderAndDetail);
     router.get('/api/get-orders-by-user-id', orderController.handleGetOrdersByUserId);
     router.get('/api/get-all-orders', orderController.handleGetAllOrders);
 

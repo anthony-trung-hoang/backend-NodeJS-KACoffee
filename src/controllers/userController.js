@@ -20,9 +20,9 @@ let handleUserLogin = async (req, res) => {
 
 let handleCreateNewUser = async (req, res) => {
     let msg = await userService.createNewUSer(req.body);
-    return res.status(200).json({
+    return res.status(200).json(
         msg
-    })
+    )
 }
 let handleDeleteUser = async (req, res) => {
     if (!req.body.id) return res.status(200).json({

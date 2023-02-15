@@ -28,7 +28,7 @@ let handleGetOrdersByUserId = async (req, res) => {
 
     let orders = await orderService.getOrdersByUserId(user_id);
 
-    if (orders) {
+    if (orders.length !== 0) {
         return res.status(200).json({
             code: 0,
             message: 'OK',

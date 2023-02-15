@@ -42,8 +42,34 @@ let handleGetOrdersByUserId = async (req, res) => {
     }
 }
 
+let handleGetOrderDetailByOrderId = async (req, res) => {
+    let order_id = req.query.order_id;
+    if (!order_id) {
+        return res.status(200).json({
+            code: 1,
+            message: 'Missing required parameters'
+        })
+    }
+
+    let details = await orderService.getOrderDetailByOrderId(order_id);
+
+    if (details.length !== 0) {
+        return res.status(200).json({
+            code: 0,
+            message: 'OK',
+            order_id: order_id,
+            details: details
+        })
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'order detail not exist'
+        })
+    }
+}
 
 module.exports = {
+    handleGetOrderDetailByOrderId: handleGetOrderDetailByOrderId,
     handleGetAllOrders: handleGetAllOrders,
     handleGetOrdersByUserId: handleGetOrdersByUserId,
     handleCreateNewOrderAndDetail: handleCreateNewOrderAndDetail

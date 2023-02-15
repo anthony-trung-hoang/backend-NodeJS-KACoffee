@@ -32,12 +32,13 @@ let initRoutes = (app) => {
     router.put('/api/edit-item-info-by-id', itemController.handleEditItemInfoById); //OK
     router.get('/api/get-item-info-by-id', itemController.handleGetItemById);// OK
     router.get('/api/get-all-items', itemController.handleGetAllItems);// OK
-    router.get('/api/get-item-image-by-id', itemController.handleGetItemImageById)
+    router.get('/api/get-item-image-by-id', itemController.handleGetItemImageById) //OK
 
     //order controller
     router.post('/api/create-new-order-and-detail', orderController.handleCreateNewOrderAndDetail);
     router.get('/api/get-orders-by-user-id', orderController.handleGetOrdersByUserId);
     router.get('/api/get-all-orders', orderController.handleGetAllOrders);
+    router.get('/api/get-order-detail-by-order-id', orderController.handleGetOrderDetailByOrderId)
 
     // Staff controller 
     router.get('/api/get-staff-order-pending', staffController.handleGetAllStaffOrderPending); // OK

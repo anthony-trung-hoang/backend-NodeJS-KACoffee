@@ -81,9 +81,32 @@ let createNewOrderAndDetail = (data) => {
     })
 }
 
+let getOrderDetailByOrderId = (order_id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let details = '';
+            if (order_id) {
+                details = await db.OrderDetail.findAll({
+                    where: {
+                        order_id: order_id
+                    },
+                    raw: true,
+                    attributes: {
+                        exclude: ['id', 'createdAt', 'updatedAt', 'order_id']
+                    }
+                })
+                console.log(details);
+                resolve(details);
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 
 module.exports = {
     getAllOrders: getAllOrders,
     getOrdersByUserId: getOrdersByUserId,
-    createNewOrderAndDetail: createNewOrderAndDetail
+    createNewOrderAndDetail: createNewOrderAndDetail,
+    getOrderDetailByOrderId: getOrderDetailByOrderId
 }

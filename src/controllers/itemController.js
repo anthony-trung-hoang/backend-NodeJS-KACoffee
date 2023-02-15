@@ -1,5 +1,6 @@
 import itemService from "../services/itemService";
 const multer = require('multer');
+const path = require('path');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -112,7 +113,7 @@ let handleGetItemImageById = async (req, res) => {
     let filePath = await itemService.getItemFilePath(id);
     console.log(filePath);
     if (filePath) {
-        return res.sendFile(filePath, { root: `D:\\project\\KA_Coffee\\KA_Coffee_Backend` });
+        return res.sendFile(filePath, { root: path.resolve(__dirname, '../..') });
     } else {
         return res.status(200).json({
             code: 2,

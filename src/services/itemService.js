@@ -158,7 +158,12 @@ let getItemFilePath = (id) => {
                     raw: true
                 })
 
-                resolve(item.image_link);
+                if (item) {
+                    resolve(item.image_link);
+                } else {
+                    resolve("");
+                }
+
             }
         } catch (error) {
             reject(error);

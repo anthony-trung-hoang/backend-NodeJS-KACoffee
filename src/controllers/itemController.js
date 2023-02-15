@@ -111,7 +111,6 @@ let handleGetItemImageById = async (req, res) => {
     }
 
     let filePath = await itemService.getItemFilePath(id);
-    console.log(filePath);
     if (filePath) {
         return res.sendFile(filePath, { root: path.resolve(__dirname, '../..') });
     } else {

@@ -1,7 +1,7 @@
 import staffService from "../services/staffService";
 
 const handleGetAllStaffOrder = async (req, res) => {
-  const status = req.body.status;
+  const status = req.query.status;
   if (status == undefined) {
     return res.status(200).json({
       code: 1,

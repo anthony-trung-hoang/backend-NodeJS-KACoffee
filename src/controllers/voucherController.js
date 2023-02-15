@@ -42,7 +42,7 @@ let handleGetAllVouchers = async (req, res) => {
 }
 
 let handleGetVoucherById = async (req, res) => {
-    let id = req.body.id;
+    let id = req.query.id;
     if (!id) {
         return res.status(200).json({
             code: 1,
@@ -67,7 +67,7 @@ let handleGetVoucherById = async (req, res) => {
 }
 
 let handleGetVoucherByCode = async (req, res) => {
-    let code = req.body.voucher_code;
+    let code = req.query.voucher_code;
     // console.log(code);
     if (!code) {
         return res.status(200).json({

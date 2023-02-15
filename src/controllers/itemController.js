@@ -76,7 +76,7 @@ let handleGetAllItems = async (req, res) => {
 }
 
 let handleGetItemById = async (req, res) => {
-    let id = req.body.id;
+    let id = req.query.id;
     if (!id) {
         return res.status(200).json({
             code: 1,
@@ -101,7 +101,7 @@ let handleGetItemById = async (req, res) => {
 }
 
 let handleGetItemImageById = async (req, res) => {
-    let id = req.body.id;
+    let id = req.query.id;
     if (!id) {
         return res.status(200).json({
             code: 1,

@@ -18,7 +18,7 @@ let handleGetAllOrders = async (req, res) => {
 }
 
 let handleGetOrdersByUserId = async (req, res) => {
-    let user_id = req.body.user_id;
+    let user_id = req.query.user_id;
     if (!user_id) {
         return res.status(200).json({
             code: 1,

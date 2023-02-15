@@ -59,7 +59,7 @@ let handleGetAllUsers = async (req, res) => {
 }
 
 let handleGetUserById = async (req, res) => {
-    let id = req.body.id;
+    let id = req.query.id;
     if (!id) {
         return res.status(200).json({
             code: 1,
@@ -84,7 +84,7 @@ let handleGetUserById = async (req, res) => {
 }
 
 let handleGetUserByPhone = async (req, res) => {
-    let phone = req.body.phone;
+    let phone = req.query.phone;
     if (!phone) {
         return res.status(200).json({
             code: 1,
@@ -108,7 +108,7 @@ let handleGetUserByPhone = async (req, res) => {
 }
 
 let handleGetAllUsersByRole = async (req, res) => {
-    let role = req.body.role;
+    let role = req.query.role;
     if (!role) {
         return res.status(200).json({
             code: 1,

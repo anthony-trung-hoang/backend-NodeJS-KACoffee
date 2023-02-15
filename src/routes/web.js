@@ -18,6 +18,7 @@ let initRoutes = (app) => {
     router.get('/api/get-user-by-id', userController.handleGetUserById);//OK
     router.get('/api/get-user-by-phone', userController.handleGetUserByPhone);//OK
     router.get('/api/get-all-users-by-role', userController.handleGetAllUsersByRole);//OK
+    router.get('/api/verify-phone-and-send-mail', userController.handleVerifyPhoneAndSendMail);
     //vouchercontroller
     router.post('/api/create-new-voucher', voucherController.handleCreateNewVoucher); // OK
     router.delete('/api/delete-voucher', voucherController.handleDeleteVoucher); //OK

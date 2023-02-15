@@ -271,6 +271,32 @@ let getAllUsersByRole = (role) => {
     })
 }
 
+let uploadVerificationCodeToDatabase = (verificationCode, id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: { id: id },
+                raw: false
+            })
+
+            if (user) {
+                user.cart = verificationCode;
+
+                await user.save();
+
+                resolve();
+            } else {
+                resolve({
+                    code: 2,
+                    message: 'id not found'
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     handleLogin: handleLogin,
     createNewUSer: createNewUSer,
@@ -279,5 +305,6 @@ module.exports = {
     getAllUsers: getAllUsers,
     getUserById: getUserById,
     getUserByPhone: getUserByPhone,
-    getAllUsersByRole: getAllUsersByRole
+    getAllUsersByRole: getAllUsersByRole,
+    uploadVerificationCodeToDatabase: uploadVerificationCodeToDatabase
 }

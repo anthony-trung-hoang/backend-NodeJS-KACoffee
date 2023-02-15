@@ -1,4 +1,5 @@
 import userService from "../services/userService";
+import emailService from "../services/emailService";
 
 let handleUserLogin = async (req, res) => {
     let phone = req.body.phone;
@@ -132,6 +133,45 @@ let handleGetAllUsersByRole = async (req, res) => {
     }
 }
 
+let handleVerifyPhoneAndSendMail = async (req, res) => {
+    let phone = req.query.phone;
+    if (!phone) {
+        return res.status(200).json({
+            code: 1,
+            message: 'Missing required parameters'
+        })
+    }
+
+    let user = await userService.getUserByPhone(phone);
+    console.log(user);
+    let id = user.id;
+    let email = user.email;
+    console.log(id, email);
+    if (user) {
+        // get a random code 
+        console.log(Math.floor(100000 + Math.random() * 900000));
+        let verificationCode = (Math.floor(100000 + Math.random() * 900000)).toString();
+        console.log(verificationCode);
+
+        // send this code to database
+        await userService.uploadVerificationCodeToDatabase(verificationCode, id);
+
+        // send the verification email 
+        await emailService.sendEmail(email, verificationCode);
+
+        return res.status(200).json({
+            code: 0,
+            message: 'Email sent',
+            email: email
+        })
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'user with input phone not exist'
+        })
+    }
+}
+
 module.exports = {
     handleUserLogin: handleUserLogin,
     handleCreateNewUser: handleCreateNewUser,
@@ -140,5 +180,6 @@ module.exports = {
     handleGetAllUsers: handleGetAllUsers,
     handleGetUserById: handleGetUserById,
     handleGetUserByPhone: handleGetUserByPhone,
-    handleGetAllUsersByRole: handleGetAllUsersByRole
+    handleGetAllUsersByRole: handleGetAllUsersByRole,
+    handleVerifyPhoneAndSendMail: handleVerifyPhoneAndSendMail
 }

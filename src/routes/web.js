@@ -18,7 +18,13 @@ let initRoutes = (app) => {
     router.get('/api/get-user-by-id', userController.handleGetUserById);//OK
     router.get('/api/get-user-by-phone', userController.handleGetUserByPhone);//OK
     router.get('/api/get-all-users-by-role', userController.handleGetAllUsersByRole);//OK
-    router.get('/api/verify-phone-and-send-mail', userController.handleVerifyPhoneAndSendMail);
+
+    // usercontroller for resetting password
+    router.post('/api/verify-phone-and-send-mail', userController.handleVerifyPhoneAndSendMail);
+    router.post('/api/verify-reset-password-code', userController.handleVerifyResetPasswordCode);
+    router.post('/api/reset-password', userController.handleResetPassword);
+
+
     //vouchercontroller
     router.post('/api/create-new-voucher', voucherController.handleCreateNewVoucher); // OK
     router.delete('/api/delete-voucher', voucherController.handleDeleteVoucher); //OK

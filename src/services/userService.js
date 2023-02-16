@@ -280,8 +280,7 @@ let uploadVerificationCodeToDatabase = (verificationCode, id) => {
             })
 
             if (user) {
-                user.cart = verificationCode;
-
+                user.cart = await hashPassword(verificationCode);
                 await user.save();
 
                 resolve();
@@ -289,6 +288,68 @@ let uploadVerificationCodeToDatabase = (verificationCode, id) => {
                 resolve({
                     code: 2,
                     message: 'id not found'
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let checkResetPasswordCode = (code, phone) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: { phone: phone },
+                raw: false
+            })
+
+            if (user) {
+                let checkResetCode = bcrypt.compareSync(code, user.cart);
+                if (checkResetCode) {
+                    user.cart = "";
+                    await user.save();
+                    console.log(user);
+                    resolve(user);
+                } else {
+                    resolve(0);
+                }
+                resolve();
+            } else {
+                resolve({
+                    code: 2,
+                    message: 'phone not found'
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let resetPassword = (phone, new_password) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: { phone: phone },
+                raw: false
+            })
+
+            if (user) {
+                // let hashedPassword = await hashPassword(new_password);
+                // user.user_password = hashedPassword;
+
+                user.user_password = new_password;
+                await user.save();
+
+                resolve({
+                    code: 0,
+                    message: 'Successfully reset'
+                })
+            } else {
+                resolve({
+                    code: 2,
+                    message: 'Phone not found'
                 })
             }
         } catch (error) {
@@ -306,5 +367,7 @@ module.exports = {
     getUserById: getUserById,
     getUserByPhone: getUserByPhone,
     getAllUsersByRole: getAllUsersByRole,
-    uploadVerificationCodeToDatabase: uploadVerificationCodeToDatabase
+    uploadVerificationCodeToDatabase: uploadVerificationCodeToDatabase,
+    checkResetPasswordCode: checkResetPasswordCode,
+    resetPassword: resetPassword
 }

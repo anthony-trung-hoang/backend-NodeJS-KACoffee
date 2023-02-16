@@ -143,26 +143,24 @@ let handleVerifyPhoneAndSendMail = async (req, res) => {
     }
 
     let user = await userService.getUserByPhone(phone);
-    console.log(user);
-    let id = user.id;
-    let email = user.email;
-    console.log(id, email);
     if (user) {
+        let id = user.id;
+        let email = user.email;
+        let user_name = user.user_name;
         // get a random code 
         console.log(Math.floor(100000 + Math.random() * 900000));
         let verificationCode = (Math.floor(100000 + Math.random() * 900000)).toString();
-        console.log(verificationCode);
-
         // send this code to database
         await userService.uploadVerificationCodeToDatabase(verificationCode, id);
 
         // send the verification email 
-        await emailService.sendEmail(email, verificationCode);
+        await emailService.sendEmail(email, verificationCode, user_name);
 
         return res.status(200).json({
             code: 0,
             message: 'Email sent',
-            email: email
+            email: email,
+            phone: phone
         })
     } else {
         return res.status(200).json({
@@ -170,6 +168,43 @@ let handleVerifyPhoneAndSendMail = async (req, res) => {
             message: 'user with input phone not exist'
         })
     }
+}
+
+let handleVerifyResetPasswordCode = async (req, res) => {
+    let phone = req.body.phone;
+    let code = req.body.code;
+    if (!phone || !code) {
+        return res.status(200).json({
+            code: 1,
+            message: 'Missing required parameters'
+        })
+    }
+
+    let checkCode = await userService.checkResetPasswordCode(code, phone);
+    if (checkCode) {
+        return res.status(200).json({
+            code: 0,
+            message: 'OK',
+            user: checkCode
+        })
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'Wrong code!'
+        })
+    }
+}
+
+let handleResetPassword = async (req, res) => {
+    if (!req.body.phone || !req.body.new_password) return res.status(200).json({
+        code: 1,
+        message: 'Missing required parameters'
+    })
+    let phone = req.body.phone; let new_password = req.body.new_password;
+    let message = await userService.resetPassword(phone, new_password);
+    return res.status(200).json({
+        message
+    })
 }
 
 module.exports = {
@@ -181,5 +216,7 @@ module.exports = {
     handleGetUserById: handleGetUserById,
     handleGetUserByPhone: handleGetUserByPhone,
     handleGetAllUsersByRole: handleGetAllUsersByRole,
-    handleVerifyPhoneAndSendMail: handleVerifyPhoneAndSendMail
+    handleVerifyPhoneAndSendMail: handleVerifyPhoneAndSendMail,
+    handleVerifyResetPasswordCode: handleVerifyResetPasswordCode,
+    handleResetPassword: handleResetPassword
 }

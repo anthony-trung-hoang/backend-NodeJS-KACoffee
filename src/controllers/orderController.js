@@ -42,6 +42,16 @@ let handleGetOrdersByUserId = async (req, res) => {
     }
 }
 
+let handleGetAllOrderDetails = async (req, res) => {
+    let details = await orderService.getAllOrderDetails();
+
+    return res.status(200).json({
+        code: 0,
+        message: 'OK',
+        details: details
+    })
+}
+
 let handleGetOrderDetailByOrderId = async (req, res) => {
     let order_id = req.query.order_id;
     if (!order_id) {
@@ -72,5 +82,6 @@ module.exports = {
     handleGetOrderDetailByOrderId: handleGetOrderDetailByOrderId,
     handleGetAllOrders: handleGetAllOrders,
     handleGetOrdersByUserId: handleGetOrdersByUserId,
+    handleGetAllOrderDetails: handleGetAllOrderDetails,
     handleCreateNewOrderAndDetail: handleCreateNewOrderAndDetail
 }

@@ -45,7 +45,8 @@ let initRoutes = (app) => {
     router.post('/api/create-new-order-and-detail', orderController.handleCreateNewOrderAndDetail);
     router.get('/api/get-orders-by-user-id', orderController.handleGetOrdersByUserId);
     router.get('/api/get-all-orders', orderController.handleGetAllOrders);
-    router.get('/api/get-order-detail-by-order-id', orderController.handleGetOrderDetailByOrderId)
+    router.get('/api/get-order-detail-by-order-id', orderController.handleGetOrderDetailByOrderId);
+    router.get('/api/get-all-order-details', orderController.handleGetAllOrderDetails);
 
     // Staff controller 
     router.get('/api/get-staff-order', staffController.handleGetAllStaffOrder); // OK

@@ -104,9 +104,23 @@ let getOrderDetailByOrderId = (order_id) => {
     })
 }
 
+let getAllOrderDetails = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let details = '';
+            details = await db.OrderDetail.findAll({ raw: true });
+            resolve(details);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+
 module.exports = {
     getAllOrders: getAllOrders,
     getOrdersByUserId: getOrdersByUserId,
     createNewOrderAndDetail: createNewOrderAndDetail,
-    getOrderDetailByOrderId: getOrderDetailByOrderId
+    getOrderDetailByOrderId: getOrderDetailByOrderId,
+    getAllOrderDetails: getAllOrderDetails
 }

@@ -1,14 +1,8 @@
 import db from "../models/index";
 
-// expired_date: DataTypes.DATE,
-// value: DataTypes.INTEGER,
-// amount: DataTypes.INTEGER,
-// voucher_code: DataTypes.STRING
-
 let createNewVoucher = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-
             if (!data.value || !data.expired_date || !data.voucher_code || !data.amount) {
                 resolve({
                     code: 1,
@@ -147,7 +141,7 @@ let getVoucherByCode = (code) => {
                     },
                     raw: true
                 })
-
+                // console.log(vouchers);
                 resolve(vouchers);
             }
         } catch (error) {

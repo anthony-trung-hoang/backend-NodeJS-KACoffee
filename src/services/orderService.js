@@ -1,38 +1,5 @@
 import db from "../models/index";
 
-
-let createNewOrder = (data) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-
-            if (!data.id || !data.total_price || !data.payment || !data.status ||
-                !data.staff_name || !data.user_id || !data.voucher_id) {
-                resolve({
-                    code: 1,
-                    message: 'Missing input parameters'
-                })
-            }
-
-            await db.Order.create({
-                id: data.id,
-                total_price: data.total_price,
-                payment: data.payment,
-                status: data.status,
-                staff_name: data.staff_name,
-                shipping_address: data.shipping_address,
-                user_id: data.user_id,
-                voucher_id: data.voucher_id
-            })
-
-            resolve({
-                code: 0,
-                message: "Successfully created"
-            })
-        } catch (error) {
-            reject(error);
-        }
-    })
-}
 let getAllOrders = () => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -65,10 +32,95 @@ let getOrdersByUserId = (user_id) => {
     })
 }
 
+let createNewOrderAndDetail = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.total_price || (!data.status && !data.status === 0) || !data.user_id) {
+                resolve({
+                    code: 1,
+                    message: 'Missing input parameters'
+                })
+            }
+            else {
+                let newOrder = await db.Order.create({
+                    total_price: data.total_price,
+                    payment: data.payment,
+                    status: (data.status) ? data.status : 0,
+                    staff_name: data.staff_name,
+                    shipping_address: (data.shipping_address) ? data.shipping_address : "OFFLINE",
+                    user_id: data.user_id,
+                    voucher_id: data.voucher_id
+                })
+
+                let newOrderId = newOrder.id;
+                let newOrderRaw = await db.Order.findOne({
+                    where: { id: newOrderId },
+                    raw: true
+                })
+
+                let itemArray = data.details;
+                for (let i = 0; i < itemArray.length; i++) {
+                    let itemID = itemArray[i].item_id;
+                    let itemQuantity = itemArray[i].quantity;
+
+                    await db.OrderDetail.create({
+                        item_id: itemID,
+                        order_id: newOrderId,
+                        quantity: itemQuantity
+                    })
+                }
+                resolve({
+                    code: 0,
+                    message: "Successfully created",
+                    order: newOrderRaw
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let getOrderDetailByOrderId = (order_id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let details = '';
+            if (order_id) {
+                details = await db.OrderDetail.findAll({
+                    where: {
+                        order_id: order_id
+                    },
+                    raw: true,
+                    attributes: {
+                        exclude: ['id', 'createdAt', 'updatedAt', 'order_id']
+                    }
+                })
+                console.log(details);
+                resolve(details);
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let getAllOrderDetails = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let details = '';
+            details = await db.OrderDetail.findAll({ raw: true });
+            resolve(details);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 
 module.exports = {
-
-    createNewOrder: createNewOrder,
     getAllOrders: getAllOrders,
-    getOrdersByUserId: getOrdersByUserId
+    getOrdersByUserId: getOrdersByUserId,
+    createNewOrderAndDetail: createNewOrderAndDetail,
+    getOrderDetailByOrderId: getOrderDetailByOrderId,
+    getAllOrderDetails: getAllOrderDetails
 }

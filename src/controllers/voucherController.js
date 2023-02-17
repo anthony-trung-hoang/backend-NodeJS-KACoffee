@@ -1,15 +1,10 @@
 import voucherService from "../services/voucherService";
 
-// expired_date: DataTypes.DATE,
-// value: DataTypes.INTEGER,
-// amount: DataTypes.INTEGER,
-// voucher_code: DataTypes.STRING
-
 let handleCreateNewVoucher = async (req, res) => {
     let msg = await voucherService.createNewVoucher(req.body);
-    return res.status(200).json({
+    return res.status(200).json(
         msg
-    })
+    )
 }
 
 let handleDeleteVoucher = async (req, res) => {
@@ -47,7 +42,7 @@ let handleGetAllVouchers = async (req, res) => {
 }
 
 let handleGetVoucherById = async (req, res) => {
-    let id = req.body.id;
+    let id = req.query.id;
     if (!id) {
         return res.status(200).json({
             code: 1,
@@ -72,7 +67,7 @@ let handleGetVoucherById = async (req, res) => {
 }
 
 let handleGetVoucherByCode = async (req, res) => {
-    let code = req.body.voucher_code;
+    let code = req.query.voucher_code;
     // console.log(code);
     if (!code) {
         return res.status(200).json({
@@ -83,7 +78,8 @@ let handleGetVoucherByCode = async (req, res) => {
 
     let vouchers = await voucherService.getVoucherByCode(code);
 
-    if (vouchers) {
+    if (vouchers.length !== 0) {
+        // console.log(vouchers.length);
         return res.status(200).json({
             code: 0,
             message: 'OK',

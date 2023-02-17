@@ -1,11 +1,45 @@
 import itemService from "../services/itemService";
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './src/public');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
+const uploadImg = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    },
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+            cb(null, true);
+        } else {
+            cb(null, false);
+        }
+    }
+}).single('image');
 
 let handleCreateNewItem = async (req, res) => {
-    let msg = await itemService.createNewItem(req.body);
-
-    return res.status(200).json({
-        msg
-    })
+    if (typeof req.file !== 'undefined') {
+        console.log(req.file);
+        let filePath = req.file.path;
+        console.log(filePath);
+        let msg = await itemService.createNewItem(req.body, filePath);
+        return res.status(200).json(
+            msg
+        )
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'Only jpeg and png images are allowed'
+        })
+    }
 }
 
 let handleDeleteItem = async (req, res) => {
@@ -43,7 +77,7 @@ let handleGetAllItems = async (req, res) => {
 }
 
 let handleGetItemById = async (req, res) => {
-    let id = req.body.id;
+    let id = req.query.id;
     if (!id) {
         return res.status(200).json({
             code: 1,
@@ -67,10 +101,32 @@ let handleGetItemById = async (req, res) => {
     }
 }
 
+let handleGetItemImageById = async (req, res) => {
+    let id = req.query.id;
+    if (!id) {
+        return res.status(200).json({
+            code: 1,
+            message: 'Missing required parameters'
+        })
+    }
+
+    let filePath = await itemService.getItemFilePath(id);
+    if (filePath) {
+        return res.sendFile(filePath, { root: path.resolve(__dirname, '../..') });
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'item with input id not exist'
+        })
+    }
+}
+
 module.exports = {
     handleCreateNewItem: handleCreateNewItem,
     handleDeleteItem: handleDeleteItem,
     handleEditItemInfoById: handleEditItemInfoById,
     handleGetAllItems: handleGetAllItems,
-    handleGetItemById: handleGetItemById
+    handleGetItemById: handleGetItemById,
+    uploadImg: uploadImg,
+    handleGetItemImageById: handleGetItemImageById
 }

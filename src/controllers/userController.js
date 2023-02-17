@@ -1,4 +1,5 @@
 import userService from "../services/userService";
+import emailService from "../services/emailService";
 
 let handleUserLogin = async (req, res) => {
     let phone = req.body.phone;
@@ -20,9 +21,9 @@ let handleUserLogin = async (req, res) => {
 
 let handleCreateNewUser = async (req, res) => {
     let msg = await userService.createNewUSer(req.body);
-    return res.status(200).json({
+    return res.status(200).json(
         msg
-    })
+    )
 }
 let handleDeleteUser = async (req, res) => {
     if (!req.body.id) return res.status(200).json({
@@ -59,7 +60,7 @@ let handleGetAllUsers = async (req, res) => {
 }
 
 let handleGetUserById = async (req, res) => {
-    let id = req.body.id;
+    let id = req.query.id;
     if (!id) {
         return res.status(200).json({
             code: 1,
@@ -84,7 +85,7 @@ let handleGetUserById = async (req, res) => {
 }
 
 let handleGetUserByPhone = async (req, res) => {
-    let phone = req.body.phone;
+    let phone = req.query.phone;
     if (!phone) {
         return res.status(200).json({
             code: 1,
@@ -108,7 +109,11 @@ let handleGetUserByPhone = async (req, res) => {
 }
 
 let handleGetAllUsersByRole = async (req, res) => {
+<<<<<<< HEAD
     let role = req.body.role;
+=======
+    let role = req.query.role;
+>>>>>>> 0b13d04b12dd89615ba2a63be44acd5261c43f32
     if (!role) {
         return res.status(200).json({
             code: 1,
@@ -118,7 +123,11 @@ let handleGetAllUsersByRole = async (req, res) => {
 
     let users = await userService.getAllUsersByRole(role);
 
+<<<<<<< HEAD
     if (users) {
+=======
+    if (users.length !== 0) {
+>>>>>>> 0b13d04b12dd89615ba2a63be44acd5261c43f32
         return res.status(200).json({
             code: 0,
             message: 'OK',
@@ -132,6 +141,83 @@ let handleGetAllUsersByRole = async (req, res) => {
     }
 }
 
+<<<<<<< HEAD
+=======
+let handleVerifyPhoneAndSendMail = async (req, res) => {
+    let phone = req.query.phone;
+    if (!phone) {
+        return res.status(200).json({
+            code: 1,
+            message: 'Missing required parameters'
+        })
+    }
+
+    let user = await userService.getUserByPhone(phone);
+    if (user) {
+        let id = user.id;
+        let email = user.email;
+        let user_name = user.user_name;
+        // get a random code 
+        console.log(Math.floor(100000 + Math.random() * 900000));
+        let verificationCode = (Math.floor(100000 + Math.random() * 900000)).toString();
+        // send this code to database
+        await userService.uploadVerificationCodeToDatabase(verificationCode, id);
+
+        // send the verification email 
+        await emailService.sendEmail(email, verificationCode, user_name);
+
+        return res.status(200).json({
+            code: 0,
+            message: 'Email sent',
+            email: email,
+            phone: phone
+        })
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'user with input phone not exist'
+        })
+    }
+}
+
+let handleVerifyResetPasswordCode = async (req, res) => {
+    let phone = req.body.phone;
+    let code = req.body.code;
+    if (!phone || !code) {
+        return res.status(200).json({
+            code: 1,
+            message: 'Missing required parameters'
+        })
+    }
+
+    let checkCode = await userService.checkResetPasswordCode(code, phone);
+    if (checkCode) {
+        return res.status(200).json({
+            code: 0,
+            message: 'OK',
+            user: checkCode
+        })
+    } else {
+        return res.status(200).json({
+            code: 2,
+            message: 'Wrong code!'
+        })
+    }
+}
+
+let handleResetPassword = async (req, res) => {
+    if (!req.body.phone || !req.body.new_password) return res.status(200).json({
+        code: 1,
+        message: 'Missing required parameters'
+    })
+    let phone = req.body.phone; let new_password = req.body.new_password;
+    let message = await userService.resetPassword(phone, new_password);
+    return res.status(200).json({
+        message
+    })
+}
+
+>>>>>>> 0b13d04b12dd89615ba2a63be44acd5261c43f32
 module.exports = {
     handleUserLogin: handleUserLogin,
     handleCreateNewUser: handleCreateNewUser,
@@ -140,5 +226,12 @@ module.exports = {
     handleGetAllUsers: handleGetAllUsers,
     handleGetUserById: handleGetUserById,
     handleGetUserByPhone: handleGetUserByPhone,
+<<<<<<< HEAD
     handleGetAllUsersByRole: handleGetAllUsersByRole
+=======
+    handleGetAllUsersByRole: handleGetAllUsersByRole,
+    handleVerifyPhoneAndSendMail: handleVerifyPhoneAndSendMail,
+    handleVerifyResetPasswordCode: handleVerifyResetPasswordCode,
+    handleResetPassword: handleResetPassword
+>>>>>>> 0b13d04b12dd89615ba2a63be44acd5261c43f32
 }

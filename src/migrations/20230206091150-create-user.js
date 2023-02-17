@@ -33,8 +33,12 @@ module.exports = {
       role: {
         allowNull: false,
         type: Sequelize.INTEGER,
+<<<<<<< HEAD
         defaultValue:1,
         values: ['1','2','3']
+=======
+        defaultValue: 3
+>>>>>>> 0b13d04b12dd89615ba2a63be44acd5261c43f32
       },
       cart: {
         type: Sequelize.STRING

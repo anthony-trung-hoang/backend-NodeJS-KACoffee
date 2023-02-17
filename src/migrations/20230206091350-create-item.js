@@ -10,7 +10,6 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       amount: {
-        allowNull: false,
         type: Sequelize.INTEGER
       },
       price: {

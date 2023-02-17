@@ -6,10 +6,10 @@ import db from "../models/index"
 //             image_link: DataTypes.TEXT,
 //                 name: DataTypes.STRING
 
-let createNewItem = (data) => {
+let createNewItem = (data, filePath) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.price || !data.description || !data.image_link || !data.name) {
+            if (!data.price || !data.description || !data.name) {
                 resolve({
                     code: 1,
                     message: 'Missing input parameters'
@@ -22,7 +22,7 @@ let createNewItem = (data) => {
                     amount: data.amount,
                     price: data.price,
                     description: data.description,
-                    image_link: data.image_link,
+                    image_link: filePath,
                     name: data.name
                 })
 
@@ -146,10 +146,36 @@ let getItemById = (id) => {
     })
 }
 
+let getItemFilePath = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let item = '';
+            if (id) {
+                item = await db.Item.findOne({
+                    where: {
+                        id: id
+                    },
+                    raw: true
+                })
+
+                if (item) {
+                    resolve(item.image_link);
+                } else {
+                    resolve("");
+                }
+
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     createNewItem: createNewItem,
     deleteItem: deleteItem,
     editItemById: editItemById,
     getAllItems: getAllItems,
-    getItemById: getItemById
+    getItemById: getItemById,
+    getItemFilePath: getItemFilePath
 }

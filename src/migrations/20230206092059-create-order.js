@@ -15,6 +15,7 @@ module.exports = {
       },
       payment: {
         allowNull: false,
+<<<<<<< HEAD
         type: Sequelize.INTEGER,
         defaultValue : 1,
         values: [1,2,3,4]
@@ -23,9 +24,15 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 0,
         values: [1,-1,0]
+=======
+        type: Sequelize.INTEGER
+      },
+      status: {
+        type: Sequelize.INTEGER,
+        defaultValue: true
+>>>>>>> 0b13d04b12dd89615ba2a63be44acd5261c43f32
       },
       staff_name: {
-        allowNull: false,
         type: Sequelize.STRING
       },
       shipping_address: {

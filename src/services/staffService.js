@@ -4,9 +4,9 @@ const getAllStaffOrder = (status) => {
   return new Promise(async (resolve, reject) => {
     try {
       let orders = await db.sequelize.query(
-        //   `SELECT Orders.id, Users.user_name, Orders.total_price, Orders.shipping_address, Vouchers.voucher_code, Orders.createdAt, Orders.updateAt, Orders.status FROM Orders INNER JOIN users ON Orders.user_id = Users.id LEFT JOIN Vouchers ON Orders.voucher_id = Vouchers.id WHERE Orders.status = ${status} ORDER BY Orders.createdAt ${
-        //     status == 0 ? "ASC" : "DESC"
-        //   };`
+        //   `SELECT Orders.id, Users.user_name, Orders.total_price, Orders.shipping_address, Vouchers.voucher_code, Orders.createdAt, Orders.updateAt, Orders.status FROM Orders INNER JOIN users ON Orders.user_id = Users.id LEFT JOIN Vouchers ON Orders.voucher_id = Vouchers.id WHERE Orders.status = ${status} ORDER BY ${
+        //   status == 0 ? "Orders.createdAt ASC" : "Orders.updatedAt DESC"
+        // };,`
         `SELECT orders.id, users.user_name, orders.total_price, orders.shipping_address, vouchers.voucher_code, orders.createdAt, orders.updatedAt, orders.status FROM orders INNER JOIN users ON orders.user_id = users.id LEFT JOIN vouchers ON orders.voucher_id = vouchers.id WHERE orders.status = ${status} ORDER BY ${
           status == 0 ? "orders.createdAt ASC" : "orders.updatedAt DESC"
         };`,
@@ -25,7 +25,7 @@ const getAllStaffOrder = (status) => {
       });
 
       Promise.all(promiseArray).then((staffOrders) => {
-        console.log(staffOrders);
+        // console.log(staffOrders);
         return resolve(staffOrders);
       });
     } catch (error) {

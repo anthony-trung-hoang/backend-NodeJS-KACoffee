@@ -68,12 +68,37 @@ let createNewOrderAndDetail = (data) => {
                         order_id: newOrderId,
                         quantity: itemQuantity
                     })
+
+                    await reduceItemAmountById(itemID, itemQuantity);
                 }
                 resolve({
                     code: 0,
                     message: "Successfully created",
                     order: newOrderRaw
                 })
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let reduceItemAmountById = (item_id, amount) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let item = await db.Item.findOne({
+                where: { id: item_id },
+                raw: false
+            })
+
+            if (item) {
+                let currentAmount = item.amount;
+                item.amount = currentAmount - amount;
+                await item.save();
+
+                resolve()
+            } else {
+                resolve()
             }
         } catch (error) {
             reject(error);

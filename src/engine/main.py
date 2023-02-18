@@ -7,12 +7,13 @@
 # Output: ./output folder : contains json file represent for each table<br>
 
 # %%
-
 import csv
 import json
 import numpy as np
-import pandas as pd
+
 # CONFIG
+
+print("Start generate data")
 
 ITEMS = 5  # Not able to change
 VOUCHERS = 5    # Note: <= 5
@@ -54,7 +55,7 @@ with open(csv_file_path_user, newline='') as csv_file:
             break
 
 # Write the converted data to a JSON file
-with open(json_file_path_user, "w") as json_file:
+with open(json_file_path_user, "w", encoding='utf-8') as json_file:
     json.dump(data_list, json_file)
 
 
@@ -84,7 +85,7 @@ with open(csv_file_path_voucher, newline='') as csv_file:
             break
 
 # Write the converted data to a JSON file
-with open(json_file_path_voucher, "w") as json_file:
+with open(json_file_path_voucher, "w",encoding='utf-8') as json_file:
     json.dump(data_list, json_file)
 
 map_vouchers_value = {}
@@ -104,7 +105,7 @@ np.random.shuffle(voucher_order)
 # Nothing
 
 # Open the JSON file for reading
-with open('./output/items.json', 'r') as f:
+with open('./output/items.json', 'r',encoding='utf-8') as f:
     # Load the JSON data from the file
     items_list = json.load(f)
 
@@ -129,11 +130,11 @@ status_order.extend([-1 for i in range(status_cancel)])
 np.random.shuffle(status_order)
 
 # Store shipping_address
-with open('./dataset/shipping_address.txt', 'r') as f:
+with open('./dataset/shipping_address.txt', 'r',encoding='utf-8') as f:
     arr_address = f.read().split('\n')
 
 # Store staff_name
-with open('./dataset/staff_name.txt', 'r') as f:
+with open('./dataset/staff_name.txt', 'r',encoding='utf-8') as f:
     arr_staff = f.read().split('\n')
 
 # Generate order detail
@@ -177,6 +178,8 @@ with open('./output/orders.json', 'w', encoding="utf-8") as f:
 
 with open('./output/orderdetails.json', 'w', encoding="utf-8") as f:
     json.dump(order_details,f,ensure_ascii=False)
+
+print("Done")
 
 
 

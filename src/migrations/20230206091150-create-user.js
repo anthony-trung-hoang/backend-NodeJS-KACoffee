@@ -35,6 +35,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 3
       },
+      rank: {
+        type: Sequelize.INTEGER,
+        defaultValue: null
+      },
+      totalMoneyHistory: {
+        type: Sequelize.INTEGER,
+        defaultValue: null
+      },
       cart: {
         type: Sequelize.STRING
       },

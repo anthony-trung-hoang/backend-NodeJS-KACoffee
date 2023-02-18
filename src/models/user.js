@@ -25,7 +25,12 @@ module.exports = (sequelize, DataTypes) => {
     birthday: DataTypes.DATE,
     gender: DataTypes.BOOLEAN,
     role: DataTypes.INTEGER,
-    cart: DataTypes.STRING
+    cart: DataTypes.STRING,
+    rank: DataTypes.INTEGER,
+    totalMoneyHistory: DataTypes.INTEGER,
+    //rank 1 100000-200000
+    //rank 2 200000-500000
+    //rank 3 500000-1000000
   }, {
     sequelize,
     modelName: 'User',

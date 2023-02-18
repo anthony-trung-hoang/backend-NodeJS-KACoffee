@@ -334,7 +334,6 @@ let resetPassword = (phone, new_password) => {
                 where: { phone: phone },
                 raw: false
             })
-
             if (user) {
                 // let hashedPassword = await hashPassword(new_password);
                 // user.user_password = hashedPassword;
@@ -358,6 +357,54 @@ let resetPassword = (phone, new_password) => {
     })
 }
 
+let getRankUser = (idUser) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: {
+                    id: idUser
+                }
+            })
+            if(user){
+                let orders = await db.Order.findAll({
+                    where: {
+                        user_id: idUser
+                    },
+                    raw: false
+                })
+                if (orders) {
+                    let arrayMoney = orders.map(item => {
+                        return item.dataValues.total_price
+                    })
+                    let total = 0
+                    arrayMoney.forEach(item => {
+                        total += item
+                    })
+                    let rank = null
+                    if(total >= 100000 && total <= 200000){
+                        rank = 1
+                    }else if(total > 200000 && total <= 500000){
+                        rank = 2
+                    }else if(total > 500000 && total <= 1000000){
+                        rank = 3
+                    }
+                    resolve({ "rank": rank })
+                } else {
+                    resolve({
+                        message: 'Error server: get rank user by id_user'
+                    })
+                }
+            }else{
+                resolve({
+                    message: 'User id not found'
+                })
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     handleLogin: handleLogin,
     createNewUSer: createNewUSer,
@@ -369,5 +416,6 @@ module.exports = {
     getAllUsersByRole: getAllUsersByRole,
     uploadVerificationCodeToDatabase: uploadVerificationCodeToDatabase,
     checkResetPasswordCode: checkResetPasswordCode,
-    resetPassword: resetPassword
+    resetPassword: resetPassword,
+    getRankUser: getRankUser
 }

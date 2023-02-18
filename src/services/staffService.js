@@ -39,7 +39,23 @@ const updateStatusOrder = (id, isSuccessful) => {
     try {
       const order = await db.Order.findByPk(id);
       if (isSuccessful) order.status = 1;
-      else order.status = -1;
+      else {
+        console.log("Order cancel, make undo amount");
+        let order_details = await db.sequelize.query(
+          // `SELECT Orderdetails.* FROM Orders INNER JOIN Orderdetails ON Orders.id = Orderdetails.order_id WHERE Orders.id = ${id}`
+          `SELECT orderdetails.* FROM orders INNER JOIN orderdetails ON orders.id = orderdetails.order_id WHERE orders.id = ${id}`,
+          {
+            type: db.sequelize.QueryTypes.SELECT,
+          }
+        );
+        order_details.forEach(async (value) => {
+          const item = await db.Item.findByPk(value.item_id);
+          item.amount += value.quantity
+          await item.save().then((data) => console.log(data.toJSON()))
+          
+        });
+        order.status = -1;
+      }
       await order.save();
       resolve(order);
     } catch (error) {

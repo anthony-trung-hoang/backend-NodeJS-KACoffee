@@ -350,6 +350,7 @@ let resetPassword = (phone, new_password) => {
                 resolve({
                     code: 2,
                     message: 'Phone not found'
+
                 })
             }
         } catch (error) {

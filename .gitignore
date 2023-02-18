@@ -4,6 +4,8 @@
 .idea/
 .env
 
+src/engine/output/*
+!/src/engine/output/items.json
 # not upload node_modules to github 
 # so you should install dependencies YOURSELF
 # OKKKK?

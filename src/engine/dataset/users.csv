@@ -1,0 +1,31 @@
+phone,user_name,email,user_password,birthday,gender,role
++84-979346001,Tina Nguyen,tina.nguyen@example.com,P@ssw0rd1,1991-02-28,0,3
++84-961565194,John Smith,john.smith@example.com,MyP@ssword,1987-06-12,1,3
++84-932640902,Emily Kim,emily.kim@example.com,Passw0rd!,1984-09-23,1,3
++84-912264227,Alex Johnson,alex.johnson@example.com,Secret123,1995-05-01,0,3
++84-973605358,Jessica Davis,jessica.davis@example.com,Password12,1998-08-08,1,3
++84-985203508,Brian Tran,brian.tran@example.com,Qwerty12,1992-03-20,0,3
++84-974505784,Hannah Lee,hannah.lee@example.com,MySecret1,1985-11-30,1,3
++84-979286101,Daniel Park,daniel.park@example.com,Password1!,1990-07-17,1,3
++84-962281002,Michelle Nguyen,michelle.nguyen@example.com,P@ssword12,1994-12-05,0,3
++84-988232295,Brandon Kim,brandon.kim@example.com,MyP@ssword1,1989-04-10,1,3
++84-945450211,Samantha Davis,samantha.davis@example.com,Secret1234,1993-01-18,0,3
++84-975912830,David Lee,david.lee@example.com,MySecret12,1986-10-28,1,3
++84-966859692,Grace Kim,grace.kim@example.com,Password123,1997-02-19,0,3
++84-962004172,Michael Johnson,michael.johnson@example.com,Qwerty123,1999-05-24,1,3
++84-977602014,Laura Tran,laura.tran@example.com,P@ssw0rd123,1991-08-04,0,3
++84-916991609,Matthew Lee,matthew.lee@example.com,MyP@ssword123,1988-12-16,1,3
++84-967282005,Ashley Davis,ashley.davis@example.com,Secret12345,1992-06-25,0,3
++84-972695744,Christopher Kim,christopher.kim@example.com,MySecret123,1984-09-27,1,3
++84-965981418,Sophia Nguyen,sophia.nguyen@example.com,Password1234,1996-03-14,0,3
++84-946606135,Ryan Park,ryan.park@example.com,Qwerty1234,1990-01-12,1,3
++84-975176196,Olivia Johnson,olivia.johnson@example.com,P@ssword123,1993-08-21,1,3
++84-936503358,Joshua Lee,joshua.lee@example.com,Secret123456,1987-04-07,0,3
++84-943551870,Avery Kim,avery.kim@example.com,MyP@ssword123,1998-11-11,1,3
++84-942934672,Isabella Davis,isabella.davis@example.com,MySecret1234,1989-07-03,0,3
++84-977510838,William Tran,william.tran@example.com,Password12345,1995-10-30,1,3
++84-989178192,Natalie Nguyen,natalie.nguyen@example.com,Qwerty12345,1999-12-28,0,3
++84-948114068,Andrew Kim,andrew.kim@example.com,P@ssword12345,1992-05-06,1,3
++84-961875232,ducquan,leducquan@gmail.com, 123123,1992-05-06,0,3
++84-972818686,vuduy, maivuduy@gmail.com, 123123,1992-05-06,0,3
++84-972818681,test, test@gmail.com, 123123, 1992-05-06,0,3

@@ -134,7 +134,7 @@ let handleGetAllUsersByRole = async (req, res) => {
 }
 
 let handleVerifyPhoneAndSendMail = async (req, res) => {
-    let phone = req.query.phone;
+    let phone = req.body.phone;
     if (!phone) {
         return res.status(200).json({
             code: 1,

@@ -20,6 +20,8 @@ const user = [
     gender: true,
     role: 3,
     cart: "",
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   {
     phone: "0981237654",
@@ -30,6 +32,8 @@ const user = [
     gender: false,
     role: 3,
     cart: "",
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   {
     phone: "0872312381",
@@ -40,6 +44,8 @@ const user = [
     gender: true,
     role: 3,
     cart: "",
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   {
     phone: "0347371212",
@@ -50,6 +56,8 @@ const user = [
     gender: false,
     role: 3,
     cart: null,
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   {
     phone: "0543243234",
@@ -60,6 +68,8 @@ const user = [
     gender: true,
     role: 3,
     cart: "",
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   {
     phone: "0372187612",
@@ -70,6 +80,8 @@ const user = [
     gender: false,
     role: 3,
     cart: "",
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   {
     phone: "0392878212",
@@ -80,6 +92,8 @@ const user = [
     gender: true,
     role: 3,
     cart: "",
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   {
     phone: "0472319987",
@@ -90,6 +104,8 @@ const user = [
     gender: false,
     role: 3,
     cart: "",
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   {
     phone: "0872219975",
@@ -100,6 +116,8 @@ const user = [
     gender: false,
     role: 3,
     cart: "",
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   {
     phone: "0392551931",
@@ -110,6 +128,8 @@ const user = [
     gender: true,
     role: 3,
     cart: "",
+    rank: 1,
+    totalMoneyHistory: 150000
   },
   // define admin
   {
@@ -121,6 +141,8 @@ const user = [
     gender: true,
     role: 1,
     cart: "",
+    rank: null,
+    totalMoneyHistory: null
   },
   // define staff
   {
@@ -132,6 +154,8 @@ const user = [
     gender: true,
     role: 2,
     cart: "",
+    rank: null,
+    totalMoneyHistory: null
   },
   {
     phone: "0472318912",
@@ -142,6 +166,8 @@ const user = [
     gender: true,
     role: 2,
     cart: "",
+    rank: null,
+    totalMoneyHistory: null
   },
 ];
 

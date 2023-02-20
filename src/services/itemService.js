@@ -1,10 +1,5 @@
-import db from "../models/index"
-
-// amount: DataTypes.INTEGER,
-//     price: DataTypes.INTEGER,
-//         description: DataTypes.TEXT,
-//             image_link: DataTypes.TEXT,
-//                 name: DataTypes.STRING
+import db from "../models/index";
+import fs from "fs";
 
 let createNewItem = (data, filePath) => {
     return new Promise(async (resolve, reject) => {
@@ -16,8 +11,6 @@ let createNewItem = (data, filePath) => {
                 })
             }
             else {
-
-
                 await db.Item.create({
                     amount: data.amount,
                     price: data.price,
@@ -51,6 +44,14 @@ let deleteItem = (id) => {
             })
 
             if (itemToDelete) {
+                let pathToImgFile = itemToDelete.image_link;
+                fs.unlink(pathToImgFile, function (err) {
+                    if (err) {
+                        throw err
+                    } else {
+                        console.log("Successfully deleted the file.")
+                    }
+                })
                 await db.Item.destroy({
                     where: { id: id }
                 })
@@ -79,11 +80,6 @@ let editItemById = (data) => {
             })
 
             if (item) {
-                // amount: DataTypes.INTEGER,
-                // price: DataTypes.INTEGER,
-                // description: DataTypes.TEXT,
-                // image_link: DataTypes.TEXT,
-                // name: DataTypes.STRING
                 item.amount = data.amount;
                 item.price = data.price;
                 item.description = data.description;
@@ -171,11 +167,55 @@ let getItemFilePath = (id) => {
     })
 }
 
+let updateImageById = (data, filePath) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let item = await db.Item.findOne({
+                where: { id: data.id },
+                raw: false
+            })
+
+            if (item) {
+                let pathToImgFile = item.image_link;
+                fs.unlink(pathToImgFile, function (err) {
+                    if (err) {
+                        throw err
+                    } else {
+                        console.log("Successfully deleted the file.")
+                    }
+                })
+                item.image_link = filePath;
+
+                await item.save();
+                let newItem = await db.Item.findOne({
+                    where: {
+                        id: data.id
+                    }
+                })
+                resolve({
+                    code: 0,
+                    message: 'Successfully updated',
+                    item: newItem
+                })
+            } else {
+                resolve({
+                    code: 2,
+                    message: 'item id not found'
+                })
+            }
+
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     createNewItem: createNewItem,
     deleteItem: deleteItem,
     editItemById: editItemById,
     getAllItems: getAllItems,
     getItemById: getItemById,
-    getItemFilePath: getItemFilePath
+    getItemFilePath: getItemFilePath,
+    updateImageById: updateImageById
 }

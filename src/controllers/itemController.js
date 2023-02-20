@@ -27,9 +27,7 @@ const uploadImg = multer({
 
 let handleCreateNewItem = async (req, res) => {
     if (typeof req.file !== 'undefined') {
-        console.log(req.file);
         let filePath = req.file.path;
-        console.log(filePath);
         let msg = await itemService.createNewItem(req.body, filePath);
         return res.status(200).json(
             msg
@@ -64,6 +62,21 @@ let handleEditItemInfoById = async (req, res) => {
     return res.status(200).json({
         message
     })
+}
+
+let handleEditItemImageById = async (req, res) => {
+    if (typeof req.file !== 'undefined') {
+        let filePath = req.file.path;
+        let msg = await itemService.updateImageById(req.body, filePath);
+        return res.status(200).json(
+            msg
+        )
+    } else {
+        return res.status(200).json({
+            code: 1,
+            message: 'Only jpeg and png images are allowed'
+        })
+    }
 }
 
 let handleGetAllItems = async (req, res) => {
@@ -128,5 +141,6 @@ module.exports = {
     handleGetAllItems: handleGetAllItems,
     handleGetItemById: handleGetItemById,
     uploadImg: uploadImg,
-    handleGetItemImageById: handleGetItemImageById
+    handleGetItemImageById: handleGetItemImageById,
+    handleEditItemImageById: handleEditItemImageById
 }

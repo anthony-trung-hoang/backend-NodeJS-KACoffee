@@ -18,6 +18,9 @@ viewEngine(app);
 initRoutes(app);
 connectDB();
 
+//cài static file
+app.use(express.static('public')); 
+
 // run app
 let port = process.env.PORT || 8080;
 

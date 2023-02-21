@@ -1,146 +1,132 @@
 import itemService from "../services/itemService";
-const multer = require('multer');
-const path = require('path');
+const multer = require("multer");
+const path = require("path");
 
-const storage = multer.diskStorage({
+//handleUploadItem la mot middleware khong phai controller
+let uploadItem = () => {
+  const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public');
+      cb(null, "./src/public");
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
-
-const uploadImg = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 5
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      cb(null, uniqueSuffix + file.originalname);
     },
+  });
+
+  const upload = multer({
+    storage: storage,
+    //filter chỉ chấp nhận những file có đuôi là .png jpeg
     fileFilter: (req, file, cb) => {
-        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, true);
-        } else {
-            cb(null, false);
-        }
-    }
-}).single('image');
+      const extension = [".png", "jpeg"];
+      const extensionOriginFile = file.originalname.slice(-4);
+      const checkExtension = extension.includes(extensionOriginFile);
+      if (checkExtension) {
+        cb(null, true);
+      } else {
+        cb(new Error("Extension file invalid"), false);
+      }
+    },
+  }).single("file");
+  return upload;
+};
+
+let handleUploadItem = async (req, res) => {
+  await itemService.uploadItem(req, res);
+};
 
 let handleCreateNewItem = async (req, res) => {
-    if (typeof req.file !== 'undefined') {
-        let filePath = req.file.path;
-        let msg = await itemService.createNewItem(req.body, filePath);
-        return res.status(200).json(
-            msg
-        )
-    } else {
-        return res.status(200).json({
-            code: 2,
-            message: 'Only jpeg and png images are allowed'
-        })
-    }
-}
+  await itemService.createNewItem(req, res);
+};
 
 let handleDeleteItem = async (req, res) => {
-    if (!req.body.id) return res.status(200).json({
-        code: 1,
-        message: 'Missing required parameters'
-    })
-
-    let msg = await itemService.deleteItem(req.body.id);
+  if (!req.body.id)
     return res.status(200).json({
-        msg
-    })
-}
+      code: 1,
+      message: "Missing required parameters",
+    });
+
+  let msg = await itemService.deleteItem(req.body.id);
+  return res.status(200).json({
+    msg,
+  });
+};
 
 let handleEditItemInfoById = async (req, res) => {
-    if (!req.body.id) return res.status(200).json({
-        code: 1,
-        message: 'Missing required parameters'
-    })
-    let data = req.body;
-    let message = await itemService.editItemById(data);
+  if (!req.body.id)
     return res.status(200).json({
-        message
-    })
-}
-
-let handleEditItemImageById = async (req, res) => {
-    if (typeof req.file !== 'undefined') {
-        let filePath = req.file.path;
-        let msg = await itemService.updateImageById(req.body, filePath);
-        return res.status(200).json(
-            msg
-        )
-    } else {
-        return res.status(200).json({
-            code: 1,
-            message: 'Only jpeg and png images are allowed'
-        })
-    }
-}
+      code: 1,
+      message: "Missing required parameters",
+    });
+  let data = req.body;
+  let message = await itemService.editItemById(data);
+  return res.status(200).json({
+    message,
+  });
+};
 
 let handleGetAllItems = async (req, res) => {
-    let items = await itemService.getAllItems();
+  let items = await itemService.getAllItems();
 
-    return res.status(200).json({
-        code: 0,
-        message: 'OK',
-        items: items
-    })
-}
+  return res.status(200).json({
+    code: 0,
+    message: "OK",
+    items: items,
+  });
+};
 
 let handleGetItemById = async (req, res) => {
-    let id = req.query.id;
-    if (!id) {
-        return res.status(200).json({
-            code: 1,
-            message: 'Missing required parameters'
-        })
-    }
+  let id = req.query.id;
+  if (!id) {
+    return res.status(200).json({
+      code: 1,
+      message: "Missing required parameters",
+    });
+  }
 
-    let item = await itemService.getItemById(id);
+  let item = await itemService.getItemById(id);
 
-    if (item) {
-        return res.status(200).json({
-            code: 0,
-            message: 'OK',
-            item: item
-        })
-    } else {
-        return res.status(200).json({
-            code: 2,
-            message: 'item with input id not exist'
-        })
-    }
-}
+  if (item) {
+    return res.status(200).json({
+      code: 0,
+      message: "OK",
+      item: item,
+    });
+  } else {
+    return res.status(200).json({
+      code: 2,
+      message: "item with input id not exist",
+    });
+  }
+};
 
 let handleGetItemImageById = async (req, res) => {
-    let id = req.query.id;
-    if (!id) {
-        return res.status(200).json({
-            code: 1,
-            message: 'Missing required parameters'
-        })
-    }
+  let id = req.query.id;
+  if (!id) {
+    return res.status(200).json({
+      code: 1,
+      message: "Missing required parameters",
+    });
+  }
 
-    let filePath = await itemService.getItemFilePath(id);
-    if (filePath) {
-        return res.sendFile(filePath, { root: path.resolve(__dirname, '../..') });
-    } else {
-        return res.status(200).json({
-            code: 2,
-            message: 'item with input id not exist'
-        })
-    }
-}
+  let filePath = await itemService.getItemFilePath(id);
+  if (filePath) {
+    return res.sendFile(filePath, { root: path.resolve(__dirname, "../..") });
+  } else {
+    return res.status(200).json({
+      code: 2,
+      message: "item with input id not exist",
+    });
+  }
+};
 
 module.exports = {
-    handleCreateNewItem: handleCreateNewItem,
-    handleDeleteItem: handleDeleteItem,
-    handleEditItemInfoById: handleEditItemInfoById,
-    handleGetAllItems: handleGetAllItems,
-    handleGetItemById: handleGetItemById,
-    uploadImg: uploadImg,
-    handleGetItemImageById: handleGetItemImageById,
-    handleEditItemImageById: handleEditItemImageById
-}
+  handleCreateNewItem: handleCreateNewItem,
+  handleDeleteItem: handleDeleteItem,
+  handleEditItemInfoById: handleEditItemInfoById,
+  handleGetAllItems: handleGetAllItems,
+  handleGetItemById: handleGetItemById,
+  handleUploadItem: handleUploadItem,
+  handleGetItemImageById: handleGetItemImageById,
+  uploadItem: uploadItem,
+};

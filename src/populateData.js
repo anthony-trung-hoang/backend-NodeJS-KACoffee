@@ -198,7 +198,7 @@ const item = [
     price: 49000,
     description:
       "Vị đắng nhẹ từ cà phê phin truyền thống kết hợp Espresso Ý, lẫn chút ngọt ngào của kem sữa và lớp foam trứng cacao, nhấn thêm hạnh nhân nướng thơm bùi, kèm topping thạch cà phê dai giòn mê ly. Tất cả cùng quyện hoà trong một thức uống làm vị giác thức giấc, thơm ngon hết nấc.",
-    image_link: "/public/1.png",
+    image_link: "1677077968479-432757000png1.png",
     name: "CloudFee Hạnh Nhân Nướng",
   },
   {
@@ -206,7 +206,7 @@ const item = [
     price: 39000,
     description:
       "Thức uống giúp tỉnh táo tức thì để bắt đầu ngày mới thật hứng khởi. Không đắng khét như cà phê truyền thống, The Coffee House Sữa Đá mang hương vị hài hoà đầy lôi cuốn. Là sự đậm đà của 100% cà phê Arabica Cầu Đất rang vừa tới, biến tấu tinh tế với sữa đặc và kem sữa ngọt ngào cực quyến rũ. Càng hấp dẫn hơn với topping thạch 100% cà phê nguyên chất giúp giữ trọn vị ngon đến ngụm cuối cùng.",
-    image_link: "/public/2.png",
+    image_link: "1677061867894-766065584mocha.jpeg",
     name: "The Coffee House Sữa Đá",
   },
   {
@@ -214,7 +214,7 @@ const item = [
     price: 29000,
     description:
       "Cà phê Đắk Lắk nguyên chất được pha phin truyền thống kết hợp với sữa đặc tạo nên hương vị đậm đà, hài hòa giữa vị ngọt đầu lưỡi và vị đắng thanh thoát nơi hậu vị.",
-    image_link: "/public/3.png",
+    image_link: "1677061867894-766065584mocha.jpeg",
     name: "Cà Phê Sữa Đá",
   },
 ];
